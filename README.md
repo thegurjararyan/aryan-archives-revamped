@@ -4,7 +4,7 @@
 
 A personal digital garden and archive built to bridge the gap between **Poetry** and **Code**. This isn't just a portfolio; it's a living, breathing journal that reacts to the user.
 
-🔗 **Live Demo:** [https://aryan-archives-revamped-svg8.vercel.app](https://aryan-archives-revamped-svg8.vercel.app)
+🔗 **Live Demo:** [https://aryan-archives-revamped-svg8.vercel.app](https://aryanarchives.vercel.app)
 
 ---
 
