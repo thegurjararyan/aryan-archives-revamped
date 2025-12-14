@@ -9,7 +9,6 @@ export default function SpecialGate({ isOpen, onClose }) {
   const [foundPerson, setFoundPerson] = useState(null);
   const [vipList, setVipList] = useState([]);
 
-  // Reset when opened
   useEffect(() => {
     if (isOpen) {
       setStep(1);
@@ -43,7 +42,18 @@ export default function SpecialGate({ isOpen, onClose }) {
 
   const checkDate = () => {
     if (!foundPerson) return;
-    if (inputDate === foundPerson.date) {
+    
+    // SMART CHECK: IGNORE THE YEAR
+    // Input format from picker: "2024-02-14"
+    // We only care about the "-02-14" part (Month and Day)
+    
+    // 1. Get MM-DD from user input
+    const userMMDD = inputDate.slice(5); // Removes first 5 chars (YYYY-)
+    
+    // 2. Get MM-DD from saved VIP date (assuming Admin saved it as YYYY-MM-DD)
+    const targetMMDD = foundPerson.date.slice(5); 
+
+    if (userMMDD === targetMMDD) {
       setStep(4);
     } else {
       setError("Name matches, but the timing is wrong.");
@@ -73,20 +83,27 @@ export default function SpecialGate({ isOpen, onClose }) {
         {step === 2 && (
           <div className="animate-[fadeIn_0.5s]">
             <h2 className="font-hand text-4xl mb-6 text-accent">Identification.</h2>
-            <input autoFocus type="text" placeholder="Your First Name..." value={inputName} onChange={e => setInputName(e.target.value)} onKeyDown={e => e.key === 'Enter' && checkName()} className="bg-transparent border-b-2 border-ink/20 dark:border-white/20 text-center text-2xl font-serif w-full outline-none focus:border-accent pb-2 mb-6 dark:text-white" />
+            <input autoFocus type="text" placeholder="Your Name..." value={inputName} onChange={e => setInputName(e.target.value)} onKeyDown={e => e.key === 'Enter' && checkName()} className="bg-transparent border-b-2 border-ink/20 dark:border-white/20 text-center text-2xl font-serif w-full outline-none focus:border-accent pb-2 mb-6 dark:text-white" />
             <button onClick={checkName} className="font-mono text-xs uppercase tracking-widest hover:text-accent">Next Step</button>
             {error && <p className="text-red-500 font-mono text-xs mt-4 animate-shake">{error}</p>}
           </div>
         )}
 
-        {/* STEP 3: Date */}
+        {/* STEP 3: Date (CALENDAR PICKER) */}
         {step === 3 && (
           <div className="animate-[fadeIn_0.5s]">
             <h2 className="font-hand text-4xl mb-6 text-accent">Verification.</h2>
-            <p className="font-serif mb-4 dark:text-gray-300">Select the Key Date:</p>
+            <p className="font-serif mb-4 dark:text-gray-300">Select the Key Date (Year doesn't matter):</p>
+            
             <div className="relative inline-block mx-auto mb-6">
-              <input type="date" value={inputDate} onChange={e => setInputDate(e.target.value)} className="bg-transparent border-b-2 border-ink/20 dark:border-white/20 text-center text-xl font-mono p-2 outline-none focus:border-accent dark:text-white dark:[color-scheme:dark] cursor-pointer" />
+              <input 
+                type="date" 
+                value={inputDate} 
+                onChange={e => setInputDate(e.target.value)} 
+                className="bg-transparent border-b-2 border-ink/20 dark:border-white/20 text-center text-xl font-mono p-2 outline-none focus:border-accent dark:text-white dark:[color-scheme:dark] cursor-pointer"
+              />
             </div>
+            
             <br/>
             <button onClick={checkDate} className="font-mono text-xs uppercase tracking-widest hover:text-accent">Decrypt</button>
             {error && <p className="text-red-500 font-mono text-xs mt-4 animate-shake">{error}</p>}
