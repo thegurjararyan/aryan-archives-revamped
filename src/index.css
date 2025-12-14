@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 1. FORCE THE BACKGROUND PATTERN */
+body {
+  background-color: #efe6d5;
+  color: #1a1a1a;
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d0c4b0' stroke-width='2'%3E%3Cpath d='M50,50 Q70,30 90,50 T130,50' /%3E%3Ccircle cx='200' cy='200' r='10' /%3E%3Cpath d='M300,100 L320,120 M320,100 L300,120' /%3E%3Cpath d='M50,300 C50,300 70,280 90,300 S130,300 130,300' stroke-dasharray='5,5'/%3E%3Cpath d='M350,350 L350,330 L370,350 Z' /%3E%3Ctext x='150' y='150' font-family='cursive' font-size='20' opacity='0.5'%3ELove%3C/text%3E%3Cpath d='M10,10 Q30,5 50,10 T90,10' opacity='0.5'/%3E%3Cpath d='M250,50 Q240,40 250,30 Q260,40 250,50' fill='rgba(200,0,0,0.1)' stroke='none'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-attachment: fixed;
+  background-size: 400px 400px;
+  overflow-x: hidden;
+}
+
+.dark body {
+  background-color: #111 !important;
+  background-image: none !important;
+  color: #e5e5e5;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #c0392b; }
+
+/* --- NEW HANDMADE EFFECTS --- */
+
+/* 1. RULER PATTERN (Notebook Margin) */
+.ruler-pattern {
+  /* Creates horizontal lines */
+  background-image: linear-gradient(to bottom, #ccc 1px, transparent 1px);
+  background-size: 100% 24px; /* Matches line-height usually */
+  border-right: 2px solid #a62a2a; /* The Red Margin Line */
+}
+
+/* 2. TAPE EFFECT (Polaroid) */
+.scotch-tape {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  /* Added webkit for iPhone support */
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  border-left: 1px dashed rgba(0,0,0,0.15);
+  border-right: 1px dashed rgba(0,0,0,0.15);
+  transform: rotate(-5deg);
+}
+
+/* 3. SCRIBBLE ANIMATION (Signature/Title) */
+.scribble-path {
+  stroke-dasharray: 1000; /* Increased to ensure full coverage */
+  stroke-dashoffset: 1000;
+  /* Added 'forwards' to ensure it stays drawn at the end */
+  animation: scribble 2s ease-out forwards 0.5s; 
+}
+
+@keyframes scribble {
+  to { stroke-dashoffset: 0; }
+}
+
+/* 4. FOOTER SIGNATURE ANIMATION */
+.path-draw {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: sign 3s ease-out forwards;
+}
+
+@keyframes sign {
+  to { stroke-dashoffset: 0; }
+}
